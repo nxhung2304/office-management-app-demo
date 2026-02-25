@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Employee App — Wireframe v0.4 (All Screens)</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap');
+
+  :root {
+    --g50:#f0fdf4;--g100:#dcfce7;--g200:#bbf7d0;--g400:#4ade80;
+    --g500:#22c55e;--g600:#16a34a;--g700:#15803d;
+    --gray50:#f9fafb;--gray100:#f3f4f6;--gray200:#e5e7eb;--gray300:#d1d5db;
+    --gray400:#9ca3af;--gray500:#6b7280;--gray600:#4b5563;
+    --gray700:#374151;--gray800:#1f2937;--gray900:#111827;
+    --white:#fff;
+    --amber50:#fffbeb;--amber100:#fef3c7;--amber700:#b45309;
+    --red50:#fef2f2;--red100:#fee2e2;--red500:#ef4444;--red600:#dc2626;
+    --blue50:#eff6ff;--blue100:#dbeafe;--blue700:#1d4ed8;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+
+  body {
+    font-family:'Plus Jakarta Sans',sans-serif;
+    background:#0a0c12;
+    min-height:100vh;
+    display:flex;flex-direction:column;align-items:center;
+    padding:40px 20px 80px;gap:56px;
+  }
+
+  .page-title {
+    color:#fff;font-size:11px;font-weight:500;letter-spacing:0.14em;
+    text-transform:uppercase;opacity:0.4;font-family:'DM Mono',monospace;
+  }
+
+  .row-label {
+    font-size:10px;color:rgba(255,255,255,0.2);
+    font-family:'DM Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;
+    width:100%;text-align:center;
+  }
+
+  .screens-row {
+    display:flex;gap:36px;align-items:flex-start;flex-wrap:wrap;justify-content:center;
+  }
+
+  .screen-wrapper {
+    display:flex;flex-direction:column;align-items:center;gap:12px;
+  }
+  .screen-label {
+    color:rgba(255,255,255,0.35);font-size:10px;
+    font-family:'DM Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;
+  }
+
+  .phone {
+    width:355px;height:760px;
+    background:var(--white);border-radius:44px;overflow:hidden;
+    box-shadow:0 0 0 8px #1a1d26,0 0 0 10px #252836,0 28px 70px rgba(0,0,0,0.65);
+    display:flex;flex-direction:column;position:relative;
+  }
+
+  .sbar {
+    height:44px;padding:14px 22px 0;
+    display:flex;justify-content:space-between;align-items:center;flex-shrink:0;
+  }
+  .sbar .t{font-size:15px;font-weight:600;}
+  .sbar svg{width:15px;height:15px;}
+  .sbar.dark .t{color:rgba(255,255,255,0.9);}
+  .sbar.dark svg{fill:rgba(255,255,255,0.8);}
+  .sbar.light .t{color:var(--gray900);}
+  .sbar.light svg{fill:var(--gray700);}
+  .sbar .icons{display:flex;gap:5px;align-items:center;}
+
+  .hdr-green{background:linear-gradient(160deg,var(--g700),var(--g600));padding:10px 20px 16px;flex-shrink:0;}
+  .hdr-title{font-size:20px;font-weight:800;color:var(--white);letter-spacing:-0.3px;}
+  .hdr-sub{font-size:13px;color:rgba(255,255,255,0.65);margin-top:2px;}
+
+  .body{flex:1;overflow-y:auto;background:var(--gray50);padding:14px;display:flex;flex-direction:column;gap:12px;}
+  .body.white{background:var(--white);}
+
+  .bnav {
+    height:70px;background:var(--white);border-top:1px solid var(--gray100);
+    display:flex;align-items:center;justify-content:space-around;
+    padding:0 6px 8px;flex-shrink:0;
+  }
+  .ni{display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;padding:6px 0;}
+  .ni .ico{font-size:20px;opacity:0.3;}
+  .ni .ico.on{opacity:1;}
+  .ni .lbl{font-size:10px;font-weight:600;color:var(--gray400);}
+  .ni .lbl.on{color:var(--g600);}
+
+  .card{background:var(--white);border-radius:14px;border:1px solid var(--gray100);box-shadow:0 1px 3px rgba(0,0,0,0.04);}
+  .sec{font-size:11px;font-weight:700;color:var(--gray400);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:-4px;}
+
+  .row{padding:13px 16px;display:flex;align-items:center;gap:12px;}
+  .row+.row{border-top:1px solid var(--gray100);}
+
+  .badge{padding:3px 9px;border-radius:20px;font-size:11px;font-weight:600;}
+  .b-pending{background:var(--amber100);color:var(--amber700);}
+  .b-approved{background:var(--g100);color:var(--g700);}
+  .b-rejected{background:var(--red100);color:var(--red600);}
+
+  .ico-box{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+
+  .btn-primary{
+    height:50px;background:linear-gradient(135deg,var(--g700),var(--g500));
+    border-radius:14px;display:flex;align-items:center;justify-content:center;
+    color:white;font-size:14px;font-weight:700;gap:8px;
+    box-shadow:0 4px 14px rgba(22,163,74,0.3);flex-shrink:0;
+  }
+
+  .input-group{display:flex;flex-direction:column;gap:6px;}
+  .input-label{font-size:11px;font-weight:700;color:var(--gray500);letter-spacing:0.05em;text-transform:uppercase;}
+  .input-field{
+    height:48px;border:1.5px solid var(--gray200);border-radius:12px;
+    padding:0 14px;background:var(--gray50);display:flex;align-items:center;gap:10px;
+  }
+  .input-field.focused{border-color:var(--g500);background:var(--white);}
+  .placeholder{font-size:14px;color:var(--gray400);}
+
+  .pbar{height:6px;background:var(--gray100);border-radius:3px;overflow:hidden;}
+  .pfill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--g600),var(--g400));}
+
+  .fab{
+    position:absolute;bottom:82px;right:18px;
+    width:50px;height:50px;border-radius:16px;
+    background:linear-gradient(135deg,var(--g700),var(--g500));
+    display:flex;align-items:center;justify-content:center;
+    font-size:24px;color:white;
+    box-shadow:0 4px 16px rgba(22,163,74,0.4);
+  }
+
+  /* Calendar */
+  .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;padding:0 12px 12px;}
+  .cal-header{display:grid;grid-template-columns:repeat(7,1fr);padding:8px 12px 4px;}
+  .cal-header span{text-align:center;font-size:11px;font-weight:600;color:var(--gray400);}
+  .cd{aspect-ratio:1;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;color:var(--gray600);}
+  .cd.empty{color:var(--gray200);}
+  .cd.sub{background:var(--g100);color:var(--g700);}
+  .cd.today{background:var(--g600);color:white;font-weight:800;}
+  .cd.miss{background:var(--red50);color:var(--red500);}
+  .cd.wknd{color:var(--gray300);}
+  .cd.fut{color:var(--gray300);}
+</style>
+</head>
+<body>
+
+<div class="page-title">Employee App — Wireframe v0.4 — All Screens</div>
+
+<!-- ══ ROW 1: Login + Home ══ -->
+<div class="row-label">Authentication & Home</div>
+<div class="screens-row">
+
+  <!-- 01 LOGIN -->
+  <div class="screen-wrapper">
+    <div class="screen-label">01 — Login</div>
+    <div class="phone">
+      <div class="sbar light"><span class="t">9:41</span><div class="icons"><svg viewBox="0 0 24 24"><path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z"/></svg><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="11" rx="2"/><path d="M22 11h1v3h-1"/></svg></div></div>
+
+      <!-- Hero -->
+      <div style="height:210px;background:linear-gradient(160deg,var(--g700) 0%,var(--g500) 100%);display:flex;align-items:flex-end;padding:24px;position:relative;overflow:hidden;flex-shrink:0;">
+        <div style="position:absolute;top:-50px;right:-50px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,0.07);"></div>
+        <div style="position:absolute;bottom:-70px;left:20px;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,0.05);"></div>
+        <div style="position:relative;z-index:1;">
+          <div style="font-size:26px;font-weight:800;color:white;letter-spacing:-0.5px;">WorkDay</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.7);margin-top:2px;">Internal Employee Portal</div>
+        </div>
+      </div>
+
+      <div style="flex:1;padding:24px;display:flex;flex-direction:column;gap:14px;overflow-y:auto;">
+        <div>
+          <div style="font-size:20px;font-weight:800;color:var(--gray900);">Chào mừng trở lại 👋</div>
+          <div style="font-size:13px;color:var(--gray500);margin-top:3px;">Đăng nhập để tiếp tục</div>
+        </div>
+
+        <div class="input-group">
+          <div class="input-label">Email</div>
+          <div class="input-field focused">
+            <span style="font-size:15px;opacity:0.5;">✉️</span>
+            <span style="font-size:14px;color:var(--gray700);">nguyenvan@company.com</span>
+          </div>
+        </div>
+
+        <div class="input-group">
+          <div class="input-label">Mật khẩu</div>
+          <div class="input-field">
+            <span style="font-size:15px;opacity:0.5;">🔒</span>
+            <span class="placeholder">••••••••</span>
+            <span style="margin-left:auto;font-size:13px;color:var(--g600);font-weight:600;">Hiện</span>
+          </div>
+        </div>
+
+        <div style="text-align:right;margin-top:-4px;">
+          <span style="font-size:13px;color:var(--g600);font-weight:600;">Quên mật khẩu?</span>
+        </div>
+
+        <div class="btn-primary">Đăng nhập</div>
+
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div style="flex:1;height:1px;background:var(--gray200);"></div>
+          <span style="font-size:12px;color:var(--gray400);font-weight:500;">hoặc</span>
+          <div style="flex:1;height:1px;background:var(--gray200);"></div>
+        </div>
+
+        <div style="height:50px;border:1.5px solid var(--gray200);border-radius:14px;display:flex;align-items:center;justify-content:center;gap:10px;font-size:14px;font-weight:600;color:var(--gray700);">
+          <div style="width:20px;height:20px;background:url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 48 48%22%3E%3Cpath fill=%22%23EA4335%22 d=%22M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z%22/%3E%3Cpath fill=%22%234285F4%22 d=%22M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z%22/%3E%3Cpath fill=%22%23FBBC05%22 d=%22M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z%22/%3E%3Cpath fill=%22%2334A853%22 d=%22M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.31-8.16 2.31-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z%22/%3E%3C/svg%3E') center/contain no-repeat;"></div>
+          Tiếp tục với Google
+        </div>
+
+        <div style="text-align:center;font-size:11px;color:var(--gray400);margin-top:auto;">
+          Chỉ tài khoản công ty được phép đăng nhập
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 02 HOME — Avatar góc phải, click → dropdown tên + email + đăng xuất -->
+  <div class="screen-wrapper">
+    <div class="screen-label">02 — Home</div>
+    <div class="phone">
+      <div class="sbar dark" style="background:var(--g700);"><span class="t">9:41</span><div class="icons"><svg viewBox="0 0 24 24"><path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z"/></svg><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="11" rx="2"/><path d="M22 11h1v3h-1"/></svg></div></div>
+
+      <!-- Header: Greeting + Avatar góc phải -->
+      <div style="background:linear-gradient(160deg,var(--g700),var(--g600));padding:10px 20px 16px;flex-shrink:0;position:relative;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+          <div>
+            <div style="font-size:13px;color:rgba(255,255,255,0.65);">Thứ Ba, 24/02/2026</div>
+            <div style="font-size:18px;font-weight:800;color:white;margin-top:1px;">Xin chào, Văn A 👋</div>
+          </div>
+          <!-- Avatar — tap để mở dropdown -->
+          <div style="width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.2);border:2px solid rgba(255,255,255,0.35);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;color:white;flex-shrink:0;cursor:pointer;">
+            VA
+          </div>
+        </div>
+
+        <!-- Today timesheet status card -->
+        <div style="background:white;border-radius:14px;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;">
+          <div>
+            <div style="font-size:11px;font-weight:600;color:var(--gray400);text-transform:uppercase;letter-spacing:0.05em;">Hôm nay</div>
+            <div style="display:flex;align-items:center;gap:6px;margin-top:3px;">
+              <div style="width:7px;height:7px;border-radius:50%;background:var(--red500);flex-shrink:0;"></div>
+              <span style="font-size:14px;font-weight:600;color:var(--gray900);">Chưa nhập timesheet</span>
+            </div>
+          </div>
+          <div style="background:linear-gradient(135deg,var(--g700),var(--g500));color:white;font-size:12px;font-weight:700;padding:8px 12px;border-radius:10px;white-space:nowrap;">
+            Nhập ngay →
+          </div>
+        </div>
+      </div>
+
+      <!-- Avatar dropdown (trạng thái đang mở) -->
+      <div style="position:absolute;top:88px;right:16px;z-index:10;background:white;border-radius:14px;box-shadow:0 8px 32px rgba(0,0,0,0.18);border:1px solid var(--gray100);min-width:220px;overflow:hidden;">
+        <!-- User info -->
+        <div style="padding:14px 16px;border-bottom:1px solid var(--gray100);display:flex;align-items:center;gap:10px;">
+          <div style="width:36px;height:36px;border-radius:50%;background:var(--g100);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:var(--g700);flex-shrink:0;">VA</div>
+          <div>
+            <div style="font-size:13px;font-weight:700;color:var(--gray900);">Nguyễn Văn A</div>
+            <div style="font-size:11px;color:var(--gray500);margin-top:1px;">nguyenvana@company.com</div>
+          </div>
+        </div>
+        <!-- Đăng xuất -->
+        <div style="padding:12px 16px;display:flex;align-items:center;gap:10px;">
+          <span style="font-size:16px;">⬆️</span>
+          <span style="font-size:13px;font-weight:700;color:var(--red600);">Đăng xuất</span>
+        </div>
+      </div>
+
+      <div class="body">
+        <!-- Tháng này -->
+        <div class="sec">Tháng này</div>
+        <div class="card" style="padding:14px 16px;display:flex;flex-direction:column;gap:8px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-size:13px;font-weight:600;color:var(--gray600);">Ngày đã nhập</span>
+            <span style="font-size:13px;font-weight:800;color:var(--g700);">15/22 ngày</span>
+          </div>
+          <div class="pbar"><div class="pfill" style="width:68%"></div></div>
+          <div style="display:flex;justify-content:space-between;">
+            <span style="font-size:12px;color:var(--gray500);">Giờ OT tháng này</span>
+            <span style="font-size:12px;font-weight:700;color:var(--gray800);">12h</span>
+          </div>
+        </div>
+
+        <!-- Gần đây -->
+        <div class="sec">Gần đây</div>
+        <div class="card">
+          <div class="row">
+            <div class="ico-box" style="background:var(--amber50);">🗓️</div>
+            <div style="flex:1;">
+              <div style="font-size:13px;font-weight:600;color:var(--gray800);">Leave Request</div>
+              <div style="font-size:12px;color:var(--gray500);margin-top:1px;">27/02/2026</div>
+            </div>
+            <div class="badge b-pending">Pending</div>
+          </div>
+          <div class="row">
+            <div class="ico-box" style="background:var(--g50);">💰</div>
+            <div style="flex:1;">
+              <div style="font-size:13px;font-weight:600;color:var(--gray800);">Bảng lương T01/2026</div>
+              <div style="font-size:12px;color:var(--gray500);margin-top:1px;">Đã có — xem chi tiết</div>
+            </div>
+            <div class="badge" style="background:var(--blue100);color:var(--blue700);">Mới</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bnav">
+        <div class="ni"><div class="ico on">🏠</div><div class="lbl on">Home</div></div>
+        <div class="ni"><div class="ico">⏱️</div><div class="lbl">Timesheet</div></div>
+        <div class="ni"><div class="ico">🗓️</div><div class="lbl">Nghỉ phép</div></div>
+        <div class="ni"><div class="ico">⏰</div><div class="lbl">OT</div></div>
+        <div class="ni"><div class="ico">💰</div><div class="lbl">Lương</div></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ ROW 2: Timesheet + Leave ══ -->
+<div class="row-label">Timesheet & Leave</div>
+<div class="screens-row">
+
+  <!-- 03 TIMESHEET — Calendar ở trên, danh sách ở dưới -->
+  <div class="screen-wrapper">
+    <div class="screen-label">03 — Timesheet</div>
+    <div class="phone" style="position:relative;">
+      <div class="sbar dark" style="background:var(--g700);"><span class="t">9:41</span><div class="icons"><svg viewBox="0 0 24 24"><path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z"/></svg><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="11" rx="2"/><path d="M22 11h1v3h-1"/></svg></div></div>
+
+      <div class="hdr-green">
+        <div class="hdr-title">Timesheet</div>
+        <div class="hdr-sub">Tháng 2, 2026</div>
+      </div>
+
+      <div class="body" style="padding:12px;gap:10px;">
+
+        <!-- CALENDAR — ở trên cùng -->
+        <div class="card" style="overflow:hidden;">
+          <!-- Month nav -->
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px 6px;">
+            <div style="width:28px;height:28px;border-radius:8px;background:var(--gray100);display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--gray600);">‹</div>
+            <div style="font-size:14px;font-weight:700;color:var(--gray900);">Tháng 2 · 2026</div>
+            <div style="width:28px;height:28px;border-radius:8px;background:var(--gray100);display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--gray600);">›</div>
+          </div>
+
+          <!-- Day headers -->
+          <div class="cal-header">
+            <span>T2</span><span>T3</span><span>T4</span><span>T5</span><span>T6</span>
+            <span style="color:var(--red500)">T7</span><span style="color:var(--red500)">CN</span>
+          </div>
+
+          <!-- Calendar grid -->
+          <div class="cal-grid">
+            <span class="cd empty"></span><span class="cd empty"></span><span class="cd empty"></span><span class="cd empty"></span><span class="cd empty"></span><span class="cd wknd"></span><span class="cd wknd"></span>
+            <span class="cd wknd">1</span><span class="cd wknd">2</span>
+            <span class="cd sub">3</span><span class="cd sub">4</span><span class="cd sub">5</span>
+            <span class="cd wknd">6</span><span class="cd wknd">7</span>
+            <span class="cd sub">8</span><span class="cd sub">9</span><span class="cd sub">10</span><span class="cd sub">11</span><span class="cd sub">12</span>
+            <span class="cd wknd">13</span><span class="cd wknd">14</span>
+            <span class="cd miss">15</span><span class="cd sub">16</span><span class="cd miss">17</span><span class="cd sub">18</span><span class="cd sub">19</span>
+            <span class="cd wknd">20</span><span class="cd wknd">21</span>
+            <span class="cd sub">22</span><span class="cd sub">23</span><span class="cd today">24</span>
+            <span class="cd fut">25</span><span class="cd fut">26</span>
+            <span class="cd wknd">27</span><span class="cd wknd">28</span>
+          </div>
+
+          <!-- Legend + progress -->
+          <div style="padding:8px 14px 12px;border-top:1px solid var(--gray100);display:flex;flex-direction:column;gap:6px;">
+            <div style="display:flex;gap:14px;">
+              <span style="font-size:11px;color:var(--gray500);display:flex;align-items:center;gap:4px;"><span style="width:8px;height:8px;border-radius:2px;background:var(--g100);display:inline-block;"></span>Đã nhập</span>
+              <span style="font-size:11px;color:var(--gray500);display:flex;align-items:center;gap:4px;"><span style="width:8px;height:8px;border-radius:2px;background:var(--red50);display:inline-block;"></span>Còn thiếu</span>
+              <span style="font-size:11px;color:var(--gray500);display:flex;align-items:center;gap:4px;"><span style="width:8px;height:8px;border-radius:50%;background:var(--g600);display:inline-block;"></span>Hôm nay</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <span style="font-size:12px;color:var(--gray500);">Đã nhập 13/18 ngày</span>
+              <span style="font-size:12px;font-weight:800;color:var(--g700);">72%</span>
+            </div>
+            <div class="pbar"><div class="pfill" style="width:72%"></div></div>
+          </div>
+        </div>
+
+        <!-- Danh sách entries — ở dưới -->
+        <div class="sec">Gần đây</div>
+        <div class="card">
+          <div class="row" style="background:var(--red50);border-radius:14px 14px 0 0;">
+            <div class="ico-box" style="background:var(--red100);flex-direction:column;">
+              <span style="font-size:14px;font-weight:800;color:var(--red600);line-height:1;">24</span>
+              <span style="font-size:9px;font-weight:600;color:var(--red400);text-transform:uppercase;">T4</span>
+            </div>
+            <div style="flex:1;">
+              <div style="font-size:13px;font-weight:700;color:var(--red600);">Hôm nay — chưa nhập</div>
+            </div>
+            <div style="background:var(--g600);color:white;font-size:12px;font-weight:700;padding:6px 12px;border-radius:8px;">Nhập</div>
+          </div>
+          <div class="row">
+            <div class="ico-box" style="background:var(--gray100);flex-direction:column;">
+              <span style="font-size:14px;font-weight:800;color:var(--gray700);line-height:1;">23</span>
+              <span style="font-size:9px;font-weight:600;color:var(--gray400);text-transform:uppercase;">T3</span>
+            </div>
+            <div style="flex:1;">
+              <div style="font-size:13px;font-weight:600;color:var(--gray800);">Project Alpha</div>
+              <div style="font-size:12px;color:var(--gray500);margin-top:1px;">8 giờ</div>
+            </div>
+            <div style="background:var(--g50);color:var(--g700);font-size:12px;font-weight:700;padding:4px 10px;border-radius:8px;">8h</div>
+          </div>
+          <div class="row" style="background:var(--amber50);border-radius:0 0 14px 14px;">
+            <div class="ico-box" style="background:var(--amber100);flex-direction:column;">
+              <span style="font-size:14px;font-weight:800;color:var(--amber700);line-height:1;">17</span>
+              <span style="font-size:9px;font-weight:600;color:var(--amber700);text-transform:uppercase;">T2</span>
+            </div>
+            <div style="flex:1;">
+              <div style="font-size:13px;font-weight:600;color:var(--amber700);">Chưa nhập — nhập muộn được</div>
+            </div>
+            <div style="background:var(--amber100);color:var(--amber700);font-size:12px;font-weight:700;padding:6px 12px;border-radius:8px;">Bổ sung</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="fab">+</div>
+
+      <div class="bnav">
+        <div class="ni"><div class="ico">🏠</div><div class="lbl">Home</div></div>
+        <div class="ni"><div class="ico on">⏱️</div><div class="lbl on">Timesheet</div></div>
+        <div class="ni"><div class="ico">🗓️</div><div class="lbl">Nghỉ phép</div></div>
+        <div class="ni"><div class="ico">⏰</div><div class="lbl">OT</div></div>
+        <div class="ni"><div class="ico">💰</div><div class="lbl">Lương</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 04 LEAVE REQUEST -->
+  <div class="screen-wrapper">
+    <div class="screen-label">04 — Xin Nghỉ</div>
+    <div class="phone">
+      <div class="sbar dark" style="background:var(--g700);"><span class="t">9:41</span><div class="icons"><svg viewBox="0 0 24 24"><path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z"/></svg><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="11" rx="2"/><path d="M22 11h1v3h-1"/></svg></div></div>
+      <div class="hdr-green">
+        <div class="hdr-title">Xin Nghỉ</div>
+        <div class="hdr-sub">Quản lý đơn nghỉ phép</div>
+      </div>
+      <div class="body">
+        <div class="btn-primary"><span style="font-size:18px;font-weight:300;">+</span> Tạo đơn xin nghỉ</div>
+        <div class="sec">Danh sách đơn</div>
+        <div class="card">
+          <div class="row">
+            <div class="ico-box" style="background:var(--amber50);">🏖️</div>
+            <div style="flex:1;">
+              <div style="font-size:13px;font-weight:700;color:var(--gray800);">Nghỉ phép năm</div>
+              <div style="font-size:12px;color:var(--gray500);margin-top:2px;">27/02/2026 · Lý do: Du lịch gia đình</div>
+            </div>
+            <div class="badge b-pending">Pending</div>
+          </div>
+          <div class="row">
+            <div class="ico-box" style="background:var(--red50);">🤒</div>
+            <div style="flex:1;">
+              <div style="font-size:13px;font-weight:700;color:var(--gray800);">Nghỉ ốm</div>
+              <div style="font-size:12px;color:var(--gray500);margin-top:2px;">10–11/01 · Lý do: Bệnh</div>
+            </div>
+            <div class="badge b-approved">Approved</div>
+          </div>
+          <div class="row">
+            <div class="ico-box" style="background:var(--gray100);">🏠</div>
+            <div style="flex:1;">
+              <div style="font-size:13px;font-weight:700;color:var(--gray800);">Việc riêng</div>
+              <div style="font-size:12px;color:var(--gray500);margin-top:2px;">15/12/2025 · Lý do: Thủ tục nhà</div>
+            </div>
+            <div class="badge b-rejected">Rejected</div>
+          </div>
+        </div>
+      </div>
+      <div class="bnav">
+        <div class="ni"><div class="ico">🏠</div><div class="lbl">Home</div></div>
+        <div class="ni"><div class="ico">⏱️</div><div class="lbl">Timesheet</div></div>
+        <div class="ni"><div class="ico on">🗓️</div><div class="lbl on">Nghỉ phép</div></div>
+        <div class="ni"><div class="ico">⏰</div><div class="lbl">OT</div></div>
+        <div class="ni"><div class="ico">💰</div><div class="lbl">Lương</div></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ ROW 3: OT + Payroll ══ -->
+<div class="row-label">OT & Payroll</div>
+<div class="screens-row">
+
+  <!-- 05 OT REQUEST -->
+  <div class="screen-wrapper">
+    <div class="screen-label">05 — OT Request</div>
+    <div class="phone">
+      <div class="sbar dark" style="background:var(--g700);"><span class="t">9:41</span><div class="icons"><svg viewBox="0 0 24 24"><path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z"/></svg><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="11" rx="2"/><path d="M22 11h1v3h-1"/></svg></div></div>
+      <div class="hdr-green">
+        <div class="hdr-title">OT Request</div>
+        <div class="hdr-sub">Đăng ký làm thêm giờ</div>
+      </div>
+      <div class="body">
+        <div class="btn-primary"><span style="font-size:18px;font-weight:300;">+</span> Tạo OT Request</div>
+        <div class="sec">Lịch sử OT</div>
+        <div class="card">
+          <div class="row">
+            <div class="ico-box" style="background:var(--blue50);">⏰</div>
+            <div style="flex:1;">
+              <div style="font-size:13px;font-weight:700;color:var(--gray800);">OT thường</div>
+              <div style="font-size:12px;color:var(--gray500);margin-top:2px;">20/02/2026 · 3 giờ</div>
+            </div>
+            <div class="badge b-approved">Approved</div>
+          </div>
+          <div class="row">
+            <div class="ico-box" style="background:var(--blue50);">⏰</div>
+            <div style="flex:1;">
+              <div style="font-size:13px;font-weight:700;color:var(--gray800);">OT cuối tuần</div>
+              <div style="font-size:12px;color:var(--gray500);margin-top:2px;">15/02/2026 · 4 giờ</div>
+            </div>
+            <div class="badge b-pending">Pending</div>
+          </div>
+          <div class="row">
+            <div class="ico-box" style="background:var(--blue50);">⏰</div>
+            <div style="flex:1;">
+              <div style="font-size:13px;font-weight:700;color:var(--gray800);">OT ngày lễ</div>
+              <div style="font-size:12px;color:var(--gray500);margin-top:2px;">01/01/2026 · 3 giờ</div>
+            </div>
+            <div class="badge b-rejected">Rejected</div>
+          </div>
+        </div>
+      </div>
+      <div class="bnav">
+        <div class="ni"><div class="ico">🏠</div><div class="lbl">Home</div></div>
+        <div class="ni"><div class="ico">⏱️</div><div class="lbl">Timesheet</div></div>
+        <div class="ni"><div class="ico">🗓️</div><div class="lbl">Nghỉ phép</div></div>
+        <div class="ni"><div class="ico on">⏰</div><div class="lbl on">OT</div></div>
+        <div class="ni"><div class="ico">💰</div><div class="lbl">Lương</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 06 PAYROLL -->
+  <div class="screen-wrapper">
+    <div class="screen-label">06 — Bảng Lương</div>
+    <div class="phone">
+      <div class="sbar dark" style="background:var(--g700);"><span class="t">9:41</span><div class="icons"><svg viewBox="0 0 24 24"><path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z"/></svg><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="11" rx="2"/><path d="M22 11h1v3h-1"/></svg></div></div>
+      <div class="hdr-green">
+        <div class="hdr-title">Bảng Lương</div>
+        <div class="hdr-sub">Xem lương theo tháng</div>
+      </div>
+      <div class="body">
+        <div class="card" style="padding:0;">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:13px 16px;">
+            <div style="font-size:20px;color:var(--gray400);">‹</div>
+            <div style="font-size:15px;font-weight:700;color:var(--gray900);">Tháng 1 · 2026</div>
+            <div style="font-size:20px;color:var(--gray300);">›</div>
+          </div>
+        </div>
+        <div class="sec">Chi tiết</div>
+        <div class="card">
+          <div class="row" style="justify-content:space-between;"><span style="font-size:13px;color:var(--gray600);">Lương cơ bản</span><span style="font-size:13px;font-weight:700;color:var(--gray900);">15.000.000 ₫</span></div>
+          <div class="row" style="justify-content:space-between;"><span style="font-size:13px;color:var(--gray600);">Phụ cấp</span><span style="font-size:13px;font-weight:700;color:var(--gray900);">730.000 ₫</span></div>
+          <div class="row" style="justify-content:space-between;"><span style="font-size:13px;color:var(--gray600);">OT</span><span style="font-size:13px;font-weight:700;color:var(--gray900);">1.020.000 ₫</span></div>
+          <div class="row" style="justify-content:space-between;"><span style="font-size:13px;color:var(--gray600);">Khấu trừ</span><span style="font-size:13px;font-weight:700;color:var(--red600);">−1.300.000 ₫</span></div>
+          <div class="row" style="justify-content:space-between;background:var(--g50);border-radius:0 0 14px 14px;border-top:2px solid var(--g100);">
+            <span style="font-size:14px;font-weight:700;color:var(--gray800);">Thực lãnh</span>
+            <span style="font-size:16px;font-weight:800;color:var(--g700);">15.450.000 ₫</span>
+          </div>
+        </div>
+        <div class="sec">Lịch sử</div>
+        <div class="card">
+          <div class="row">
+            <div class="ico-box" style="background:var(--g50);">📄</div>
+            <div style="flex:1;"><div style="font-size:13px;font-weight:600;color:var(--gray800);">Tháng 12/2025</div><div style="font-size:12px;color:var(--gray500);margin-top:1px;">Đã thanh toán</div></div>
+            <span style="font-size:13px;font-weight:700;color:var(--gray900);">17.800.000 ₫</span>
+          </div>
+          <div class="row">
+            <div class="ico-box" style="background:var(--g50);">📄</div>
+            <div style="flex:1;"><div style="font-size:13px;font-weight:600;color:var(--gray800);">Tháng 11/2025</div><div style="font-size:12px;color:var(--gray500);margin-top:1px;">Đã thanh toán</div></div>
+            <span style="font-size:13px;font-weight:700;color:var(--gray900);">16.500.000 ₫</span>
+          </div>
+        </div>
+        <div style="text-align:center;font-size:11px;color:var(--gray400);">🔒 Dữ liệu chỉ xem, không chỉnh sửa</div>
+      </div>
+      <div class="bnav">
+        <div class="ni"><div class="ico">🏠</div><div class="lbl">Home</div></div>
+        <div class="ni"><div class="ico">⏱️</div><div class="lbl">Timesheet</div></div>
+        <div class="ni"><div class="ico">🗓️</div><div class="lbl">Nghỉ phép</div></div>
+        <div class="ni"><div class="ico">⏰</div><div class="lbl">OT</div></div>
+        <div class="ni"><div class="ico on">💰</div><div class="lbl on">Lương</div></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
