@@ -1,0 +1,3 @@
+- [] Export API docs (endpoints, request/response format)
+- [] Confirm auth flow: token dạng JWT hay session?
+- [] Confirm Google OAuth flow phía server xử lý thế nào

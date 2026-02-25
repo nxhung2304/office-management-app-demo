@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Employee App — Wireframe v0.4b — Form Screens</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap');
+
+  :root {
+    --g50:#f0fdf4;--g100:#dcfce7;--g200:#bbf7d0;
+    --g500:#22c55e;--g600:#16a34a;--g700:#15803d;
+    --gray50:#f9fafb;--gray100:#f3f4f6;--gray200:#e5e7eb;--gray300:#d1d5db;
+    --gray400:#9ca3af;--gray500:#6b7280;--gray600:#4b5563;
+    --gray700:#374151;--gray800:#1f2937;--gray900:#111827;
+    --white:#fff;
+    --amber50:#fffbeb;--amber100:#fef3c7;--amber600:#d97706;--amber700:#b45309;
+    --blue50:#eff6ff;--blue100:#dbeafe;--blue600:#2563eb;--blue700:#1d4ed8;
+    --red50:#fef2f2;--red100:#fee2e2;--red600:#dc2626;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+
+  body {
+    font-family:'Plus Jakarta Sans',sans-serif;
+    background:#0a0c12;
+    min-height:100vh;
+    display:flex;flex-direction:column;align-items:center;
+    padding:40px 20px 80px;gap:56px;
+  }
+
+  .page-title {
+    color:#fff;font-size:11px;font-weight:500;letter-spacing:0.14em;
+    text-transform:uppercase;opacity:0.4;font-family:'DM Mono',monospace;
+  }
+
+  .screens-row {
+    display:flex;gap:36px;align-items:flex-start;flex-wrap:wrap;justify-content:center;
+  }
+
+  .screen-wrapper {
+    display:flex;flex-direction:column;align-items:center;gap:12px;
+  }
+  .screen-label {
+    color:rgba(255,255,255,0.35);font-size:10px;
+    font-family:'DM Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;
+  }
+
+  .phone {
+    width:355px;height:760px;
+    background:var(--white);border-radius:44px;overflow:hidden;
+    box-shadow:0 0 0 8px #1a1d26,0 0 0 10px #252836,0 28px 70px rgba(0,0,0,0.65);
+    display:flex;flex-direction:column;position:relative;
+  }
+
+  /* Status bar */
+  .sbar {
+    height:44px;padding:14px 22px 0;
+    display:flex;justify-content:space-between;align-items:center;flex-shrink:0;
+  }
+  .sbar .t{font-size:15px;font-weight:600;}
+  .sbar svg{width:15px;height:15px;}
+  .sbar.light .t{color:var(--gray900);}
+  .sbar.light svg{fill:var(--gray700);}
+  .sbar .icons{display:flex;gap:5px;align-items:center;}
+
+  /* Nav bar (back button style) */
+  .navbar {
+    height:52px;
+    padding:0 20px;
+    display:flex;align-items:center;gap:10px;
+    border-bottom:1px solid var(--gray100);
+    flex-shrink:0;
+    background:var(--white);
+  }
+  .back-btn {
+    width:32px;height:32px;border-radius:10px;
+    background:var(--gray100);
+    display:flex;align-items:center;justify-content:center;
+    font-size:16px;color:var(--gray600);flex-shrink:0;
+  }
+  .navbar-title {
+    font-size:16px;font-weight:800;color:var(--gray900);
+  }
+
+  /* Body */
+  .body {
+    flex:1;overflow-y:auto;background:var(--gray50);
+    padding:16px;display:flex;flex-direction:column;gap:14px;
+  }
+
+  /* Form fields */
+  .field {display:flex;flex-direction:column;gap:6px;}
+  .field-label {
+    font-size:11px;font-weight:700;color:var(--gray500);
+    letter-spacing:0.06em;text-transform:uppercase;
+  }
+  .field-input {
+    height:48px;border:1.5px solid var(--gray200);border-radius:12px;
+    padding:0 14px;background:var(--white);
+    display:flex;align-items:center;justify-content:space-between;
+  }
+  .field-input.focused {border-color:var(--g500);}
+  .field-input .val {font-size:14px;color:var(--gray800);font-weight:500;}
+  .field-input .placeholder {font-size:14px;color:var(--gray400);}
+  .field-input .chevron {font-size:14px;color:var(--gray300);}
+
+  .field-textarea {
+    min-height:90px;border:1.5px solid var(--gray200);border-radius:12px;
+    padding:12px 14px;background:var(--white);
+    font-size:14px;color:var(--gray400);
+    line-height:1.5;
+  }
+
+  /* Section card */
+  .section-card {
+    background:var(--white);border-radius:14px;
+    border:1px solid var(--gray100);
+    box-shadow:0 1px 3px rgba(0,0,0,0.04);
+    padding:16px;
+    display:flex;flex-direction:column;gap:14px;
+  }
+
+  .section-title {
+    font-size:13px;font-weight:700;color:var(--gray800);
+    margin-bottom:-4px;
+  }
+
+  /* Hours picker */
+  .hours-picker {
+    display:flex;align-items:center;justify-content:center;gap:16px;
+    padding:8px 0;
+  }
+  .hours-btn {
+    width:40px;height:40px;border-radius:12px;
+    background:var(--gray100);
+    display:flex;align-items:center;justify-content:center;
+    font-size:20px;color:var(--gray600);font-weight:300;
+  }
+  .hours-display {
+    font-size:36px;font-weight:800;color:var(--gray900);
+    min-width:80px;text-align:center;letter-spacing:-1px;
+  }
+  .hours-unit {
+    font-size:14px;font-weight:600;color:var(--gray400);
+  }
+
+  /* Project chip list */
+  .chip-list {display:flex;flex-wrap:wrap;gap:8px;}
+  .chip {
+    padding:7px 14px;border-radius:20px;
+    border:1.5px solid var(--gray200);
+    font-size:13px;font-weight:600;color:var(--gray600);
+    background:var(--white);
+  }
+  .chip.selected {
+    border-color:var(--g600);background:var(--g50);color:var(--g700);
+  }
+
+  /* Leave type grid */
+  .type-grid {display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  .type-card {
+    padding:12px;border-radius:12px;border:1.5px solid var(--gray200);
+    display:flex;flex-direction:column;align-items:flex-start;gap:6px;
+    background:var(--white);
+  }
+  .type-card.selected {
+    border-color:var(--g600);background:var(--g50);
+  }
+  .type-card .type-icon {font-size:22px;}
+  .type-card .type-name {font-size:13px;font-weight:700;color:var(--gray800);}
+  .type-card.selected .type-name {color:var(--g700);}
+
+  /* Date range */
+  .date-row {display:flex;gap:8px;}
+  .date-row .field {flex:1;}
+
+  /* Submit button */
+  .btn-submit {
+    height:52px;
+    background:linear-gradient(135deg,var(--g700),var(--g500));
+    border-radius:14px;
+    display:flex;align-items:center;justify-content:center;
+    color:white;font-size:15px;font-weight:700;
+    box-shadow:0 4px 14px rgba(22,163,74,0.3);
+    flex-shrink:0;
+    margin-top:auto;
+  }
+
+  /* Bottom sheet overlay (for FAB modal feel) */
+  .sheet-handle {
+    width:36px;height:4px;border-radius:2px;
+    background:var(--gray200);margin:0 auto 16px;
+  }
+</style>
+</head>
+<body>
+
+<div class="page-title">Employee App — Wireframe v0.4b — Màn hình tạo mới</div>
+
+<div class="screens-row">
+
+  <!-- A: NHẬP TIMESHEET -->
+  <div class="screen-wrapper">
+    <div class="screen-label">03a — Nhập Timesheet</div>
+    <div class="phone">
+      <div class="sbar light">
+        <span class="t">9:41</span>
+        <div class="icons">
+          <svg viewBox="0 0 24 24"><path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z"/></svg>
+          <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="11" rx="2"/><path d="M22 11h1v3h-1"/></svg>
+        </div>
+      </div>
+
+      <div class="navbar">
+        <div class="back-btn">‹</div>
+        <div class="navbar-title">Nhập Timesheet</div>
+      </div>
+
+      <div class="body">
+
+        <!-- Ngày -->
+        <div class="section-card">
+          <div class="section-title">📅 Ngày làm việc</div>
+          <div class="field">
+            <div class="field-label">Ngày</div>
+            <div class="field-input focused">
+              <span class="val">Thứ Tư, 24/02/2026</span>
+              <span class="chevron">›</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tổng số giờ -->
+        <div class="section-card">
+          <div class="section-title">⏱️ Tổng số giờ làm</div>
+          <div class="hours-picker">
+            <div class="hours-btn">−</div>
+            <div>
+              <div class="hours-display">8<span class="hours-unit" style="font-size:18px;">.0</span></div>
+              <div style="text-align:center;font-size:12px;color:var(--gray400);margin-top:2px;">giờ</div>
+            </div>
+            <div class="hours-btn">+</div>
+          </div>
+        </div>
+
+        <!-- Project / Task -->
+        <div class="section-card">
+          <div class="section-title">📁 Project</div>
+          <div class="chip-list">
+            <div class="chip selected">Project Alpha</div>
+            <div class="chip">Project Beta</div>
+            <div class="chip">Internal</div>
+            <div class="chip">Training</div>
+          </div>
+        </div>
+
+        <!-- Task -->
+        <div class="section-card">
+          <div class="section-title">✏️ Task / Mô tả</div>
+          <div class="field-textarea">
+            Mobile app UI — Login screen, Home screen
+          </div>
+        </div>
+
+        <div class="btn-submit">Lưu Timesheet</div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- B: TẠO LEAVE REQUEST -->
+  <div class="screen-wrapper">
+    <div class="screen-label">04a — Tạo Leave Request</div>
+    <div class="phone">
+      <div class="sbar light">
+        <span class="t">9:41</span>
+        <div class="icons">
+          <svg viewBox="0 0 24 24"><path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z"/></svg>
+          <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="11" rx="2"/><path d="M22 11h1v3h-1"/></svg>
+        </div>
+      </div>
+
+      <div class="navbar">
+        <div class="back-btn">‹</div>
+        <div class="navbar-title">Tạo đơn xin nghỉ</div>
+      </div>
+
+      <div class="body">
+
+        <!-- Loại nghỉ -->
+        <div class="section-card">
+          <div class="section-title">🗂️ Loại nghỉ</div>
+          <div class="type-grid">
+            <div class="type-card selected">
+              <div class="type-icon">🏖️</div>
+              <div class="type-name">Nghỉ phép năm</div>
+            </div>
+            <div class="type-card">
+              <div class="type-icon">🤒</div>
+              <div class="type-name">Nghỉ ốm</div>
+            </div>
+            <div class="type-card">
+              <div class="type-icon">🏠</div>
+              <div class="type-name">Việc riêng</div>
+            </div>
+            <div class="type-card">
+              <div class="type-icon">🎉</div>
+              <div class="type-name">Nghỉ lễ</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Ngày nghỉ -->
+        <div class="section-card">
+          <div class="section-title">📅 Thời gian nghỉ</div>
+          <div class="date-row">
+            <div class="field">
+              <div class="field-label">Từ ngày</div>
+              <div class="field-input focused">
+                <span class="val">27/02/2026</span>
+                <span class="chevron">›</span>
+              </div>
+            </div>
+            <div class="field">
+              <div class="field-label">Đến ngày</div>
+              <div class="field-input">
+                <span class="val">27/02/2026</span>
+                <span class="chevron">›</span>
+              </div>
+            </div>
+          </div>
+          <div style="background:var(--g50);border-radius:10px;padding:10px 12px;display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-size:13px;color:var(--gray600);">Tổng số ngày nghỉ</span>
+            <span style="font-size:14px;font-weight:800;color:var(--g700);">1 ngày</span>
+          </div>
+        </div>
+
+        <!-- Lý do -->
+        <div class="section-card">
+          <div class="section-title">📝 Lý do</div>
+          <div class="field-textarea" style="color:var(--gray800);">Du lịch gia đình</div>
+        </div>
+
+        <div class="btn-submit">Gửi đơn xin nghỉ</div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- C: TẠO OT REQUEST -->
+  <div class="screen-wrapper">
+    <div class="screen-label">05a — Tạo OT Request</div>
+    <div class="phone">
+      <div class="sbar light">
+        <span class="t">9:41</span>
+        <div class="icons">
+          <svg viewBox="0 0 24 24"><path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z"/></svg>
+          <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="11" rx="2"/><path d="M22 11h1v3h-1"/></svg>
+        </div>
+      </div>
+
+      <div class="navbar">
+        <div class="back-btn">‹</div>
+        <div class="navbar-title">Tạo OT Request</div>
+      </div>
+
+      <div class="body">
+
+        <!-- Loại OT -->
+        <div class="section-card">
+          <div class="section-title">🗂️ Loại OT</div>
+          <div class="chip-list">
+            <div class="chip selected">OT thường</div>
+            <div class="chip">OT cuối tuần</div>
+            <div class="chip">OT ngày lễ</div>
+          </div>
+          <div style="font-size:12px;color:var(--gray400);margin-top:-4px;">
+            * Loại OT lấy từ danh mục OT Type của hệ thống
+          </div>
+        </div>
+
+        <!-- Ngày OT -->
+        <div class="section-card">
+          <div class="section-title">📅 Ngày OT</div>
+          <div class="field">
+            <div class="field-label">Ngày</div>
+            <div class="field-input focused">
+              <span class="val">20/02/2026</span>
+              <span class="chevron">›</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Số giờ OT -->
+        <div class="section-card">
+          <div class="section-title">⏱️ Số giờ OT</div>
+          <div class="hours-picker">
+            <div class="hours-btn">−</div>
+            <div>
+              <div class="hours-display">3<span class="hours-unit" style="font-size:18px;">.0</span></div>
+              <div style="text-align:center;font-size:12px;color:var(--gray400);margin-top:2px;">giờ</div>
+            </div>
+            <div class="hours-btn">+</div>
+          </div>
+        </div>
+
+        <div class="btn-submit">Gửi OT Request</div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
